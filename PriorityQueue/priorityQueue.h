@@ -74,13 +74,17 @@ int achei(PriorityQueue *priorityQueue, int value) {
 
 }
 
-void print_pq(PriorityQueue *pq){
+void destroy_priority_queue(PriorityQueue *pq){
     Node *current = pq->head;
+    Node *aux;
 
     while(current){
-        printf("%d ", current->value);
+        aux = current;
         current = current->next;
+        free(aux);
     }
+
+    free(pq);
 
 }
 
