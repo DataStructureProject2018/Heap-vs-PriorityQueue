@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include "PriorityQueue/priorityQueue.h"
 
 int main() {
 
