@@ -3,10 +3,34 @@
 //
 
 #include <stdio.h>
+#include "./Heap/heap.h"
 
 int main() {
 
-    printf("Hello World\n");
+    int i;
+
+    Heap *heap = create_heap();
+
+    FILE *in = fopen("../array.txt", "r");
+    if(!in) {
+        printf("Error opening file...\n");
+        return 0;
+    }
+
+    fscanf(in, "%d", &i);
+    while(!feof(in)) {
+        if(!feof(in)) {
+            heap = add_node(heap, create_heapNode(i));
+            fscanf(in, "%d", &i);
+        }
+    }
+
+    //printHeap(heap);
+
+    search(heap, 2);
+
+    destroy_heap(heap);
+    fclose(in);
 
     return 0;
 }
