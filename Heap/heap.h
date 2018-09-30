@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_HEAP_SIZE 65535
+#define MAX_HEAP_SIZE 65534
 
 typedef struct heapNode {
     int value;
@@ -76,20 +76,21 @@ void swap_nodes(HeapNode **first, HeapNode **second) {
 }
 
 // Adiciona novo node na Heap
-Heap *add_node(Heap *heap, HeapNode *node) {
-
+int add_node(Heap *heap, HeapNode *node) {
+    int cont = 1;
     heap->data[++heap->size] = node;
 
     int key_index = heap->size;
     int parent_index = get_parent_index(heap->size);
 
     while(parent_index >= 1 && heap->data[key_index]->value <= heap->data[parent_index]->value){
+        cont++;
         swap_nodes(&heap->data[key_index], &heap->data[parent_index]);
         key_index = parent_index;
         parent_index = get_parent_index(key_index);
     }
 
-    return heap;
+    return cont;
 }
 
 void printHeap(Heap *heap) {
@@ -114,20 +115,7 @@ void destroy_heap(Heap *heap) {
 
 };
 
-void search(Heap *heap, int value) {
 
-    long int i = 1;
-    while(i <= heap->size && heap->data[i]->value != value) {
-        ++i;
-    }
-
-    if(i > heap->size) {
-        printf("Not found\n");
-    } else {
-        printf("Took %ld\n", i);
-    }
-
-}
 
 
 #endif //HEAPVSPRIORITYQUEUE_HEAP_H

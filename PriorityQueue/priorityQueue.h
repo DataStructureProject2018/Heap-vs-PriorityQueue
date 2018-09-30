@@ -37,13 +37,14 @@ Node* create_node(int value) {
 
 }
 
-PriorityQueue* enqueue(PriorityQueue *priorityQueue, int value) {
+PriorityQueue* enqueue(PriorityQueue *priorityQueue, int value, int *cont) {
 
     Node *node = create_node(value);
     Node *current = priorityQueue->head;
     Node *previous = NULL;
 
     while(current && current->value < value){
+        *cont += 1;
         previous = current;
         current = current->next;
     }
@@ -58,20 +59,6 @@ PriorityQueue* enqueue(PriorityQueue *priorityQueue, int value) {
     }
 
     return priorityQueue;
-}
-
-int achei(PriorityQueue *priorityQueue, int value) {
-
-    int cont = 0;
-    Node *current = priorityQueue->head;
-
-    while(current && current->value != value){
-        current = current->next;
-        ++cont;
-    }
-
-    return cont;
-
 }
 
 void destroy_priority_queue(PriorityQueue *pq){

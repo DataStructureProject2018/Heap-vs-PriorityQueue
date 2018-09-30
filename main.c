@@ -3,34 +3,52 @@
 //
 
 #include <stdio.h>
+#include <time.h>
 #include "./Heap/heap.h"
+#include "./PriorityQueue/priorityQueue.h"
+
+#define MAX 50000
 
 int main() {
 
-    int i;
+    srand(time(NULL));
+    int i, contHeap = 1, contQueue = 1, num;
 
-    Heap *heap = create_heap();
-
-    FILE *in = fopen("../array.txt", "r");
-    if(!in) {
-        printf("Error opening file...\n");
+    FILE *heapFile = fopen("../heapFile.txt", "w");
+    if(!heapFile) {
+        printf("Failed to open heapFile\n");
+        return 0;
+    }
+    FILE *queueFile = fopen("../queueFile.txt", "w");
+    if(!queueFile) {
+        printf("Failed to open queueFile\n");
         return 0;
     }
 
-    fscanf(in, "%d", &i);
-    while(!feof(in)) {
-        if(!feof(in)) {
-            heap = add_node(heap, create_heapNode(i));
-            fscanf(in, "%d", &i);
-        }
+    Heap *heap = create_heap();
+    PriorityQueue *queue = create_queue();
+
+    for(i = 0; i < MAX; ++i) {
+        num = rand();
+        queue = enqueue(queue, num, &contQueue);
+        add_node(heap, create_heapNode(num));
+    }
+    contQueue = 1;
+
+    for(i = 0; i < 500; ++i) {
+        num = rand() % 10000;
+        queue = enqueue(queue, num, &contQueue);
+        contHeap = add_node(heap, create_heapNode(num));
+        fprintf(heapFile, "%d\n%d\n", num, contHeap);
+        fprintf(queueFile, "%d\n%d\n", num, contQueue);
+        contQueue = 1;
     }
 
-    //printHeap(heap);
-
-    search(heap, 2);
-
     destroy_heap(heap);
-    fclose(in);
+    destroy_priority_queue(queue);
+
+    fclose(heapFile);
+    fclose(queueFile);
 
     return 0;
 }
