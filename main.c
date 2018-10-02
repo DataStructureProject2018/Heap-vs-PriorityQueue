@@ -14,12 +14,12 @@ int main() {
     srand(time(NULL));
     int i, contHeap = 1, contQueue = 1, num;
 
-    FILE *heapFile = fopen("../heapFile.txt", "w");
+    FILE *heapFile = fopen("./heapFile.txt", "w");
     if(!heapFile) {
         printf("Failed to open heapFile\n");
         return 0;
     }
-    FILE *queueFile = fopen("../queueFile.txt", "w");
+    FILE *queueFile = fopen("./queueFile.txt", "w");
     if(!queueFile) {
         printf("Failed to open queueFile\n");
         return 0;
@@ -35,7 +35,7 @@ int main() {
     }
     contQueue = 1;
 
-    for(i = 0; i < 500; ++i) {
+    for(i = 0; i < 3500; ++i) {
         num = rand() % 10000;
         queue = enqueue(queue, num, &contQueue);
         contHeap = add_node(heap, create_heapNode(num));
