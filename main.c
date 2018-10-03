@@ -12,7 +12,7 @@
 int main() {
 
     srand(time(NULL));
-    int i, contHeap = 1, contQueue = 1, num;
+    int i, contHeap = 1, contQueue = 1, num, opcao;
 
     FILE *heapFile = fopen("./heapFile.txt", "w");
     if(!heapFile) {
@@ -29,7 +29,7 @@ int main() {
     PriorityQueue *queue = create_queue();
 
     for(i = 0; i < MAX; ++i) {
-        num = rand();
+        num = rand()%50000;
         queue = enqueue(queue, num, &contQueue);
         add_node(heap, create_heapNode(num));
     }

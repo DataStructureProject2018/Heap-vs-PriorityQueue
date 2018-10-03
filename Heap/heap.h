@@ -102,6 +102,47 @@ void printHeap(Heap *heap) {
 
 }
 
+int min_heapify(Heap *heap, int i, int cont) {
+
+    int smallest = i;
+    int leftIndex = get_left_index(i);
+    int rightIndex = get_right_index(i);
+
+    // Verificamos se o filho da esquerda é menor do que o pai dele
+    if(leftIndex <= heap->size && heap->data[leftIndex]->value <= heap->data[i]->value) {
+        cont++;
+        smallest = leftIndex;
+    }
+
+    // Verificamos se o filho da direita é menor do que o da esquerda (caso o da esquerda seja menor do que o pai)
+    if(rightIndex <= heap->size && heap->data[rightIndex]->value <= heap->data[smallest]->value) {
+        cont++;
+        smallest = rightIndex;
+    }
+
+    // Caso tenhamos achado um filho menor, trocamos ele com o pai e continuamos a arrumar a heap
+    if(smallest != i) {
+        swap_nodes(&heap->data[i], &heap->data[smallest]);
+
+        return min_heapify(heap, smallest, cont);
+    }
+    else{
+        return cont;
+    }
+
+}
+
+int remove_heap(Heap *heap, int cont) {
+
+    int removed = heap->data[1]->value;
+    heap->data[1] = heap->data[heap->size];
+    heap->data[heap->size] = NULL;
+    heap->size--;
+
+    return min_heapify(heap, 1, cont);
+
+}
+
 void destroy_heap(Heap *heap) {
 
     int i;

@@ -61,6 +61,8 @@ PriorityQueue* enqueue(PriorityQueue *priorityQueue, int value, int *cont) {
     return priorityQueue;
 }
 
+
+
 void destroy_priority_queue(PriorityQueue *pq){
     Node *current = pq->head;
     Node *aux;
@@ -72,6 +74,18 @@ void destroy_priority_queue(PriorityQueue *pq){
     }
 
     free(pq);
+
+}
+
+int remove_queue(PriorityQueue *pq){
+
+    if(pq->head){
+        Node *aux = pq->head;
+        pq->head = pq->head->next;
+        
+        return 1;
+    }
+    return 0;
 
 }
 

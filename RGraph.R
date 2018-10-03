@@ -28,10 +28,43 @@ while(i <= length(lineHeap)){
   j <- j+1
 }
 
+# Variabels to help the Bubble Sort
+aux <- 0
+n <- length(lineHeap)/2
+
+## Sorting queuex and heapx and changing queuey and heapy when necessary
+for(i in 1:(n-1)){
+  for(j in 1:(n-i)){
+    if(heapx[j+1]<heapx[j])
+    {
+      aux <- heapx[j]
+      heapx[j] <- heapx[j+1]
+      heapx[j+1] <- aux
+
+      # WE NEED TO CHANGE THE heapy ALSO
+
+      aux <- heapy[j]
+      heapy[j] <- heapy[j+1]
+      heapy[j+1] <- aux
+    }
+    if(queuex[j+1]<queuex[j])
+    {
+      aux <- queuex[j]
+      queuex[j] <- queuex[j+1]
+      queuex[j+1] <- aux
+
+      # WE NEED TO CHANGE THE queuey ALSO
+
+      aux <- queuey[j]
+      queuey[j] <- queuey[j+1]
+      queuey[j+1] <- aux
+    }
+  }
+}
 # Plotting queue graph
-plot(queuex, queuey, type="p", col="blue", ann = FALSE, bg="blue", pch=21:21)
+plot(queuex, queuey, type="p", col="blue", ann = FALSE, pch=21:21)
 # Plotting heap graph
-lines(heapx, heapy, type="p", col="red", pch=21:21, bg="red")
+lines(heapx, heapy, type="p", col="red", pch=21:21)
 
 # Adding Titles
 title(main="Heap vs Priority Queue", col.main="red", font.main=4)
